@@ -1,0 +1,35 @@
+\section{Experiments}
+
+\subsection{Experimental Setup}
+
+\subsection{Main Results}
+
+\subsection{Ablation Study}
+
+\subsection{Quality Analysis of Prior}
+\begin{figure*}[t]  
+  \centering
+  \includegraphics[width=\textwidth]{figure/Corrected Samples.png} 
+  \caption{Numbers of samples corrected by various training dynamic patterns as prior on 20newsgroup dataset.}
+  \label{f2}
+\end{figure*}
+\begin{figure*}[t]  
+  \centering
+  \includegraphics[width=\textwidth]{figure/Accuracy.png} 
+  \caption{Performance curves under different noise ratios on 20newsgroup dataset.}
+  \label{f2}
+\end{figure*}
+In order to evaluate the performance of DyGen dynamics-based prior (Dynamics), we compare it with the current state-of-the-art training dynamics models:
+\begin{itemize}
+  \item[$\bullet$] Base: This is the original KNN based prior used in NPC. KNN is a common machine learning algorithm that classifies based on the distance between samples.
+  \item[$\bullet$] AUM: This is a measure of the average difference between the logit value of the class to which a sample is assigned and the logit value of the highest class to which it is not assigned. AUM (Average Unassigned Margin) is used to evaluate the confidence that a sample is assigned to the correct category.
+  \item[$\bullet$] Cartography: This prior observes that during training, instances with smaller mean and standard deviation of output probabilities tend to correspond to labeling errors. This means that trained dynamic statistical features can be used to detect labeling errors.
+\end{itemize}
+The quality of the dynamic priors in DyGen is assessed by comparing its performance in sample correction with these different prior knowledges. The results show that the dynamic prior in DyGen consistently exhibits excellent performance under various noise types and ratios, demonstrating its effectiveness in providing high-quality true label information for noise prediction calibration.
+
+\subsection{ Performance with Large Noise Ratio}
+We also evaluate the model under large noise ratios($\geqslant50\% $), where Figure 6 shows the results of these evaluations. The results show that DyGen exhibits strong robustness to large noise ratios. Furthermore, we can also observe that as the label noise increases, the performance improvement of DyGen relative to other methods also increases. This observation is also reflected in the previous icon. As demonstrated in Figure 6, this performance improvement can be attributed to DyGen’s dynamic-based prior function, which provides the generative model with high-quality ground-truth label information in the second stage. In other words, DyGen is still able to maintain high performance even in the presence of a large amount of noise, and as the proportion of noise increases, its performance advantage over other methods becomes more significant. This is because DyGen utilizes a dynamic prior function to effectively provide the model with accurate real label information, thereby improving the model's robustness and performance in a noisy environment.
+
+
+\section{CONCLUSION}
+This paper proposes a method to correct for noise, and we focus on exploiting training dynamics to correct noisy predictions, taking into account the large distance between noisy samples and their assigned label clusters. Compared with clean samples, noisy samples consistently exhibit higher distance means and standard deviations across 1,500 experiments, resulting in significant differences in their training patterns during PLM fine-tuning. To improve the quality of prior knowledge and enhance the robustness to noisy labels, we propose the DyGen framework, a noisy label learning method that integrates training dynamic patterns and deep generative models. We exploit the consistency of multiple branches, optimizing via a co-regularization loss, rather than relying solely on potentially unreliable noisy labels. Our proposed method, DyGen, achieves an average accuracy improvement of 2.55$\%$ on five benchmark datasets including synthetic and real-world noise. Furthermore, we conducted extensive experiments to confirm the effectiveness of each component. We believe that this study opens new possibilities in utilizing training trajectories to handle noisy labels, especially in calibrating noisy predictions at large noise scales.
